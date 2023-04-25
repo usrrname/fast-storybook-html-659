@@ -23,6 +23,20 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+            {
+                loader: 'sass-loader',
+                options: {
+                    webpackImporter: false,
+                    sassOptions: {
+                        includePaths: ['node_modules'],
+                    },
+                }
+            },
+        ],
+    },
     ],
   },
   output: {
@@ -31,8 +45,8 @@ module.exports = {
     clean: true,
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html'),
-    }),
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, 'index.html'),
+      }),
   ],
 };

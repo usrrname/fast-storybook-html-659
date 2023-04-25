@@ -35,12 +35,12 @@ export declare type StoryObj<TArgs = Args> = StoryAnnotations<FASTFramework, TAr
  */
 export declare type StoryFn<TArgs = Args> = AnnotatedStoryFn<FASTFramework, TArgs>;
 /**
+ * Combined Storybook story args.
+ */
+export declare type StoryArgs<TArgs = Args> = Partial<Omit<TArgs, keyof FASTElement>> & Args;
+/**
  * Story function that represents a CSFv2 component example.
  *
  * NOTE that in Storybook 7.0, this type will be renamed to `StoryFn` and replaced by the current `StoryObj` type.
  */
 export declare type Story<TArgs = Args> = StoryFn<StoryArgs<TArgs>>;
-/**
- * Combined Storybook story args.
- */
-export declare type StoryArgs<TArgs = Args> = Partial<Omit<TArgs, keyof FASTElement>> & Args;

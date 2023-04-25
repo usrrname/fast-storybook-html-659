@@ -1,9 +1,8 @@
-import type { FASTElement, ViewTemplate } from "@microsoft/fast-element";
-import type {
+import { FASTElement, ViewTemplate } from "@microsoft/fast-element";
+import {
   AnnotatedStoryFn,
   Args,
   ComponentAnnotations,
-  StoryAnnotations,
   StoryContext,
 } from "@storybook/csf";
 import qs from "qs";
@@ -49,7 +48,7 @@ export function fixtureURL(
  */
 export function renderComponent<TArgs = Args>(
   template: ViewTemplate
-): (args: TArgs, context: StoryContext) => Element | DocumentFragment | null {
+): (args: Args, context: StoryContext) => Element | DocumentFragment | null {
   return function (args, { updateArgs }) {
     const storyFragment = new DocumentFragment();
     template.render({ ...args, updateArgs }, storyFragment);
@@ -77,14 +76,14 @@ export type Meta<TArgs = Args> = ComponentAnnotations<
 >;
 
 /**
- * Story function that represents a CSFv3 component example.
- */
-export declare type StoryObj<TArgs = Args> = StoryAnnotations<FASTFramework, TArgs>;
-
-/**
  * Story function that represents a CSFv2 component example.
  */
 export declare type StoryFn<TArgs = Args> = AnnotatedStoryFn<FASTFramework, TArgs>;
+
+/**
+ * Combined Storybook story args.
+ */
+export type StoryArgs<TArgs = Args> = Partial<Omit<TArgs, keyof FASTElement>> & Args;
 
 /**
  * Story function that represents a CSFv2 component example.
@@ -92,8 +91,3 @@ export declare type StoryFn<TArgs = Args> = AnnotatedStoryFn<FASTFramework, TArg
  * NOTE that in Storybook 7.0, this type will be renamed to `StoryFn` and replaced by the current `StoryObj` type.
  */
 export declare type Story<TArgs = Args> = StoryFn<StoryArgs<TArgs>>;
-
-/**
- * Combined Storybook story args.
- */
-export type StoryArgs<TArgs = Args> = Partial<Omit<TArgs, keyof FASTElement>> & Args;

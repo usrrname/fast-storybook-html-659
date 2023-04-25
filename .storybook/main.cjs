@@ -14,9 +14,11 @@ module.exports = {
         "@storybook/addon-essentials", 
         '@storybook/addon-a11y',
         '@storybook/addon-interactions',
-        '@storybook/addon-highlight'
+        '@storybook/addon-highlight',
+        "@storybook/addon-controls",
     ],
-    stories: ["../src/**/*.doc.mdx", "../src/**/*.stories.@(ts|js)", '../src/**/*.stories.mdx'],
+    stories: ["../src/**/*.doc.mdx","../src/**/*.stories.@(ts|js)", '../src/**/*.stories.mdx'],
+    staticDir: ['../assets', '../styles.css'],
     core: {
         disableTelemetry: true,
         builder: "webpack5",
@@ -52,22 +54,10 @@ module.exports = {
                 loader: "babel-loader",
                 exclude: [/node_modules/],
             },
+
             {
-                test: /\.(scss|css)$/,
-                use: [
-                    {
-                        loader: 'css-loader',
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            webpackImporter: false,
-                            sassOptions: {
-                                includePaths: ['node_modules'],
-                            },
-                        }
-                    },
-                ],
+              test: /\.(sa|sc|c)ss$/i,
+              use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
             },
             {
                 test: /\.svg$/,
