@@ -1,8 +1,9 @@
 import { html } from '@microsoft/fast-element';
-import type { Meta, Story, StoryArgs } from '../../__test__/helpers.js';
-import { renderComponent } from '../../__test__/helpers.js';
+import type { Meta, Story, StoryArgs } from '../__test__/helper.js';
+import { renderComponent } from '../__test__/helper.js';
 import type { Button } from './button.js';
 import { ButtonType } from '@microsoft/fast-foundation';
+import ButtonMDX from './button.doc.mdx';
 
 const storyTemplate = html<StoryArgs<Button>>`
     <fast-button
@@ -87,14 +88,16 @@ export default {
     ariaRoledescription: { control: 'text' },
     storyContent: { table: { disable: true } },
   },
-} as Meta<FASTButton>;
+} as Meta<Button>;
 
-export const Button: Story<FASTButton> = renderComponent(storyTemplate).bind(
-  {}
-);
+export const Overview: Story<Button> = renderComponent(storyTemplate).bind({});
+Overview.parameters = {
+  doc: {
+    page: ButtonMDX
+  }
+}
 
-export const ButtonInForm: Story<FASTButton> = renderComponent(
-  html<StoryArgs<FASTButton>>`
+export const ButtonInForm: Story<Button> = renderComponent(html<StoryArgs<Button>>`
         <form @submit="${() => false}">
             <fast-text-field value="${(x) => x.inputValue}"></fast-text-field>
             ${storyTemplate}
@@ -102,20 +105,21 @@ export const ButtonInForm: Story<FASTButton> = renderComponent(
     `
 ).bind({});
 
-export const ButtonWithSubmitType: Story<FASTButton> = ButtonInForm.bind({});
+export const ButtonWithSubmitType: Story<Button> = renderComponent(storyTemplate).bind({});
+
 ButtonWithSubmitType.args = {
   inputValue: 'Hello world',
   storyContent: 'Submit',
   type: 'submit',
 };
 
-export const ButtonWithResetType: Story<FASTButton> = ButtonInForm.bind({});
+export const ButtonWithResetType: Story<Button> = renderComponent(storyTemplate).bind({});
 ButtonWithResetType.args = {
   storyContent: 'Reset',
   type: 'reset',
 };
 
-export const ButtonWithSlottedStartEnd: Story<FASTButton> = Button.bind({});
+export const ButtonWithSlottedStartEnd: Story<Button> = renderComponent(storyTemplate).bind({});
 ButtonWithSlottedStartEnd.args = {
   storyContent: html`
         <svg slot="start" width="20" height="20"><use href="#test-icon" /></svg>
@@ -124,7 +128,7 @@ ButtonWithSlottedStartEnd.args = {
     `,
 };
 
-export const ButtonWithSlottedIconContent: Story<FASTButton> = Button.bind({});
+export const ButtonWithSlottedIconContent: Story<Button> = renderComponent(storyTemplate).bind({});
 ButtonWithSlottedIconContent.args = {
   storyContent: html`
         <svg width="20" height="20"><use href="#test-icon" /></svg>

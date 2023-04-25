@@ -24,13 +24,19 @@
       "ES2015",
       "ES2016.Array.Include"
     ],
-    "declarationMap": true,
-    "sourceMap": true,
-    "noEmitOnError": true,
-    "strict": true,
-    "rootDir": "src"
+    "paths": {
+      "react/*": [
+        "./src/react-components"
+      ]
+    }
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
+    "src/typings.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.pw.spec.ts",
+    "src/**/*.stories.ts",
+    "src/styles/**"
   ]
 }
